@@ -1,0 +1,241 @@
+---
+title: "Making Slides in R with {xaringan}"
+subtitle: "Tips & Tricks"
+author: "Alexa DiBenedetto"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# About Me
+
+.pull-left[
+
+### Hi, I'm Alexa! 
+
+I am a data scientist at Fannie Mae, where I prepare data, conduct analyses, and create reports and apps to help our customers understand their data.
+
+]
+
+.pull-right[
+
+
+```{r, echo=F, out.width=250, out.height=250}
+knitr::include_graphics("icon.jpg")
+```
+
+]
+
+--
+
+### Where can you find me?
+
+* email: alexadibenedetto92@gmail.com
+* github: https://github.com/alexadibenedetto
+* linkedin: https://www.linkedin.com/in/alexadibenedetto/
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+
+---
+# Outline
+<br>
+* Why make slides in R?
+* What is xaringan
+  * How to install and get started
+* Demo
+
+
+---
+# Why make slides in R?
+
+.center[
+```{r, echo=F, out.width=550, out.height=300}
+knitr::include_graphics("data-science-workflow.png")
+```
+]
+
+We've widely embraced tools for importing, tidying, and understanding data programmatically.
+
+We've started to communicate results using RMarkdown documents and Shiny apps or dashboards.
+
+...However, our business partners often expect results to be presented in a standard "slide deck" format.
+
+
+---
+# Why make slides in R?
+
+Wouldn't it be easier to do all of our data import, tidying, modeling, visualization, and reporting in one place?
+
+  * If results get updated on a schedule (monthly, quarterly), when new data gets released, powerpoint slides quickly become outdated
+  * Powerpoint slides are not reproducible
+  * Powerpoint slides are not easy to collaborate on or version control (think Git)
+
+
+---
+-About me (one slide)
+-Data scientist workflow
+-Many ways to make slides in r (slidly, slides.io, xaringan)
+-downloading the package and how to make a new powerpoint
+-link to full template online, documentation
+-switch to demo
+  -how to make a slide (---)
+  -bullets
+  -links
+  -rcode (& highlighting r code)
+  -columns
+  -pictures
+  -incremental slides
+  -latex
+  -customization (simple included classes,xaringan themes, custom css, other packages)
+  
+  
+
+
+---
+
+# remark.js vs xaringan
+
+Some differences between using remark.js (left) and using **xaringan** (right):
+
+.pull-left[
+1. Start with a boilerplate HTML file;
+
+1. Plain Markdown;
+
+1. Write JavaScript to autoplay slides;
+
+1. Manually configure MathJax;
+
+1. Highlight code with `*`;
+
+1. Edit Markdown source and refresh browser to see updated slides;
+]
+
+.pull-right[
+1. Start with an R Markdown document;
+
+1. R Markdown (can embed R/other code chunks);
+
+1. Provide an option `autoplay`;
+
+1. MathJax just works;<sup>*</sup>
+
+1. Highlight code with `{{}}`;
+
+1. The RStudio addin "Infinite Moon Reader" automatically refreshes slides on changes;
+]
+
+.footnote[[*] Not really. See next page.]
+
+---
+
+# Math Expressions
+
+You can write LaTeX math expressions inside a pair of dollar signs, e.g. &#36;\alpha+\beta$ renders $\alpha+\beta$. You can use the display style with double dollar signs:
+
+```
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```
+
+$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+
+Limitations:
+
+1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+
+1. There should not be spaces after the opening `$` or before the closing `$`.
+
+1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
+
+
+---
+
+# Tables
+
+If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+
+```{r}
+knitr::kable(head(iris), format = 'html')
+```
+
+
+---
+
+# Some Tips
+
+- Slides can be automatically played if you set the `autoplay` option under `nature`, e.g. go to the next slide every 30 seconds in a lightning talk:
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          autoplay: 30000
+    ```
+
+--
+
+- A countdown timer can be added to every page of the slides using the `countdown` option under `nature`, e.g. if you want to spend one minute on every page when you give the talk, you can set:
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          countdown: 60000
+    ```
+
+    Then you will see a timer counting down from `01:00`, to `00:59`, `00:58`, ... When the time is out, the timer will continue but the time turns red.
+    
+---
+
+# Some Tips
+
+- The title slide is created automatically by **xaringan**, but it is just another remark.js slide added before your other slides.
+
+    The title slide is set to `class: center, middle, inverse, title-slide` by default. You can change the classes applied to the title slide with the `titleSlideClass` option of `nature` (`title-slide` is always applied).
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          titleSlideClass: [top, left, inverse]
+    ```
+    
+--
+
+- If you'd like to create your own title slide, disable **xaringan**'s title slide with the `seal = FALSE` option of `moon_reader`.
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        seal: false
+    ```
+
+---
+
+# Some Tips
+
+- There are several ways to build incremental slides. See [this presentation](https://slides.yihui.org/xaringan/incremental.html) for examples.
+
+- The option `highlightLines: true` of `nature` will highlight code lines that start with `*`, or are wrapped in `{{ }}`, or have trailing comments `#<<`;
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          highlightLines: true
+    ```
+
+    See examples on the next page.
+
+
+
