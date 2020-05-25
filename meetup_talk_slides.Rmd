@@ -308,7 +308,7 @@ class: inverse, center, middle
 
 [Publishing your work](https://arm.rbind.io/prework/options/)
 
-[Infinite Moon Reader (Instant Preview)](https://yihui.org/en/2019/02/ultimate-inf-mr/)
+[Infinite Moon Reader (Instant Preview)](http://jenrichmond.rbind.io/post/infinite-moon-reader/)
 
 [Introduction to CSS](https://www.geeksforgeeks.org/css-introduction/)
 
