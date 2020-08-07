@@ -189,7 +189,7 @@ Outside of a code chunk:
 Inside a code chunk:
 
 ```{r, echo=T, eval=F, out.width=550, out.height=300}
-knitr::include_graphics("path_to_image")
+knitr::include_graphics("~/xaringan_talk/icon.jpg")
 ```
 ]
 
@@ -227,7 +227,7 @@ stargazer::stargazer(lm(Petal.Width ~ Sepal.Length, data = iris), type="html", s
 
 We can also display visualizations:
 .center[
-```{r, echo=F}
+```{r, echo=t, eval=F}
 iris %>% ggplot(aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
   geom_point() +
   theme_minimal()
@@ -308,7 +308,10 @@ class: inverse, center, middle
 
 [Publishing your work](https://arm.rbind.io/prework/options/)
 
-[Infinite Moon Reader (Instant Preview)](http://jenrichmond.rbind.io/post/infinite-moon-reader/)
+[{xaringanthemer}](https://pkg.garrickadenbuie.com/xaringanthemer/articles/xaringanthemer.html)
+
+[{xaringanextra}](https://pkg.garrickadenbuie.com/xaringanExtra/#/)
 
 [Introduction to CSS](https://www.geeksforgeeks.org/css-introduction/)
+
 
